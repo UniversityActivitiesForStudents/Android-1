@@ -1,72 +1,110 @@
 fun main(args: Array<String>) {
 
-    // datatype variableName = value;
-//    var name: String? = null
-//    var age: Int? = null
+    // functions
+    printMyName()
+    println(sum())
+    println(sum(1, 6))
+    println(sumThreeNumbers(1, 2))
+    println(sumThreeNumbers(1, 2, 5))
+    println(sumThreeNumbers(1, num3 = 4, num2 = 2))
+    println(sumThreeNumbers(num1 = 5, num3 = 4, num2 = 2))
+    println(testFun("Monther"))
+    println(testFun())
 
-//    if (1 == 1) {
-//        println("1 is equal to 1")
-//    } else {
-//        println("1 is not equal to 1")
+    // classes
+    val person = Person(age = 1)
+    println(person)
+    val person2 = Person2("Ali", 100)
+    println(person2)
+
+}
+
+fun printMyName() {
+    println("Monther")
+}
+
+fun sum(): Int {
+    return 1 + 1
+}
+
+fun sum(num1: Int, num2: Int): Int {
+    return num1 + num2
+}
+
+fun sumThreeNumbers(num1: Int, num2: Int, num3: Int = 3): Int {
+    return num1 + num2 + num3
+}
+
+fun testFun(name: String? = "Ali"): String {
+//    if (name == null) {
+//        return ""
 //    }
+//    return name
 
-//    val age = (1..100).random()
-//    when (age) {
-//        20 -> {
-//            println("You are 20 years old")
-//        }
-//        30 -> {
-//            println("You are 30 years old")
-//        }
-//        else -> {
-//            println("You are not 20 or 30 years old")
-//        }
-//    }
+    return name ?: "No name entered"
+}
 
-    // list
-//    val subNames = arrayListOf("Ahmed", "Bassam")
-//    val arrNames: ArrayList<String> = ArrayList()
-//    arrNames.add("John")
-//    arrNames.addAll(subNames)
-//    println(arrNames)
+/*
+Notes:
+- Kotlin doesn't support multiple inheritance, but it supports implementing multiple interfaces
+ */
+open class Person(
+    var name: String = "",
+    var age: Int = 0
+): MyInterface {
 
-    // set
-//    val namesSet: MutableSet<String> = mutableSetOf()
-//    namesSet.add("Ahmed")
-//    namesSet.add("Ahmed")
-//    namesSet.add("Monther")
-//    namesSet.add("Ali")
-//    println(namesSet)
+    init {
+        // called every time an object is created from this class
+        println("Person object created")
+    }
 
-    // map
-//    val namesMap: MutableMap<Int, Any> = mutableMapOf()
-//    namesMap[1] = "Ahmed"
-//    namesMap[2] = true
-//    println(namesMap)
+    companion object {
+        // This represents static variables and functions in Java (Called by class name)
+        const val MAX_AGE = 100
+        fun printMaxAge() {
+            println(MAX_AGE)
+        }
+    }
 
-    // casting
-//    val age = 20
-//    val ageString = age.toString()
+    var weight: Int = 0
 
-    // loops
-//    for (i in 10 downTo 1) {
-//        println(i)
-//    }
-//    val subNames = arrayListOf("Ahmed", "Bassam")
-//    for (name in subNames) {
-//        println(name)
-//    }
-//    subNames.forEach { name ->
-//        println(name)
-//    }
-//    subNames.forEach {
-//
-//    }
+    constructor(name: String, age: Int, weight: Int): this(name, age) {
+        this.weight = weight
+    }
 
-    // scanner
-//    println("Enter your age :")
-//    var age = readln()?.toInt()
-//    var currentYear = 2023
-//    println("Your age is $age years old, and the current year is $currentYear, and the sum ${ currentYear + (age ?: 0) }")
+    override fun getName() {
+        TODO("Not yet implemented")
+    }
+
+    override fun toString(): String {
+        return "name = $name, age = $age, weight = $weight"
+    }
+
+    open fun printName(): String {
+        return name
+    }
+
+}
+
+class Student(
+    gpa: Float,
+):Person() {
+
+    override fun printName(): String {
+        return ""
+    }
+
+}
+
+data class Person2(
+    var name: String,
+    var height: Int,
+) {
+
+}
+
+interface MyInterface {
+
+    fun getName()
 
 }
